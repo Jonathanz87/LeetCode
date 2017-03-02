@@ -1,16 +1,7 @@
 # LeetCode
 
-change from lnux:in
-C
-C
-C
-C
-
+change from Linux
 
 LeetCode in java
 
-B
-B
-
-C
 /ce in git
