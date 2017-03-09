@@ -23,7 +23,7 @@ public class LongestCommonPrefix{
 				if(prefix.charAt(pIndex) != strs[i].charAt(pIndex)){
 					break;
 				}
-				pIndex++;
+				pIndex++;	
 			}
 			prefixLen = pIndex;
 		}
