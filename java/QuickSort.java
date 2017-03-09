@@ -26,4 +26,9 @@ public class QuickSort{
 			QuickSortk(arr, swapIndex + 1, bIndex);
 		}
 	}
+
+	String[] strs
+
+
+	strs[0].compareTo(strs[1])
 }
