@@ -35,9 +35,7 @@ public class TwoSum{
 			map.put(nums[i], i);
 		}
 
-
-		int[] result = {0, 0};
-		return result;
+		return new int[2];
 	}
 
 /*	static public int[] twoSum(int[] nums, int target) {
