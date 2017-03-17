@@ -25,7 +25,7 @@ public class InsertInterval{
 			add(new Interval(12,16));
 		}};
 
-		Interval newInterval = new Interval(4, 9);
+/*		Interval newInterval = new Interval(4, 9);
 		for(Interval i : list){
 			System.out.println(i.start + " " + i.end);
 		}
@@ -34,7 +34,8 @@ public class InsertInterval{
 
 		for(Interval i : list){
 			System.out.println(i.start + " " + i.end);
-		}
+		}*/
+		System.out.println(findEndIntervalIndex(list, 7));
 	}
 
 	// Definition for an interval.
@@ -69,5 +70,58 @@ public class InsertInterval{
 		temp.add(inserIndex, newInterval);
 
 		return temp;
+	}
+
+	static public int findStartIntervalIndex(List<Interval> intervals, int n) {
+		int lastIndex = intervals.size() - 1;
+		if(intervals.get(0).end >= n)
+			return 1;
+		if(intervals.get(lastIndex).end < n){
+			return lastIndex + 1;
+		}
+		return findStartIntervalIndex(intervals, 0, lastIndex, n);
+	}
+
+	static public int findStartIntervalIndex(List<Interval> intervals, int fIndex, int bIndex, int n) {
+		int size = bIndex - fIndex + 1;
+
+		if(size == 2){
+			return bIndex;
+		}
+
+		int mIndex = size / 2 + fIndex;
+
+		if(n <= intervals.get(mIndex).end){
+			return findStartIntervalIndex(intervals, fIndex, mIndex, n);
+		}else{
+			return findStartIntervalIndex(intervals, mIndex, bIndex, n);
+		}
+	}
+
+	static public int findEndIntervalIndex(List<Interval> intervals, int n) {
+		int lastIndex = intervals.size() - 1;
+		if(n < intervals.get(0).start)
+			return -1;
+		if(n >= intervals.get(lastIndex).start){
+			return lastIndex;
+		}
+
+		return findEndIntervalIndex(intervals, 0, lastIndex, n);
+	}
+
+	static public int findEndIntervalIndex(List<Interval> intervals, int fIndex, int bIndex, int n) {
+		int size = bIndex - fIndex + 1;
+
+		if(size == 2){
+			return fIndex;
+		}
+
+		int mIndex = size / 2 + fIndex;
+
+		if(n <= intervals.get(mIndex).start){
+			return findStartIntervalIndex(intervals, fIndex, mIndex, n);
+		}else{
+			return findStartIntervalIndex(intervals, mIndex, bIndex, n);
+		}
 	}
 }
