@@ -43,15 +43,15 @@ public class Permutations{
 		int i = fIndex + 1;
 		permute(numList, nums, i, bIndex);
 		while(i <= bIndex){
-			nums[i] = nums[i] ^ nums[fIndex];
-			nums[fIndex] = nums[i] ^ nums[fIndex];
-			nums[i] = nums[i] ^ nums[fIndex];
+			nums[i] 		= nums[i] ^ nums[fIndex];
+			nums[fIndex]	= nums[i] ^ nums[fIndex];
+			nums[i]			= nums[i] ^ nums[fIndex];
 
 			permute(numList, Arrays.copyOf(nums, nums.length), fIndex + 1, bIndex);
 
-			nums[i] = nums[i] ^ nums[fIndex];
-			nums[fIndex] = nums[i] ^ nums[fIndex];
-			nums[i] = nums[i] ^ nums[fIndex];
+			nums[i]			= nums[i] ^ nums[fIndex];
+			nums[fIndex]	= nums[i] ^ nums[fIndex];
+			nums[i]			= nums[i] ^ nums[fIndex];
 			i++;
 		}
 	}
