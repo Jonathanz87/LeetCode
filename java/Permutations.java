@@ -51,7 +51,7 @@ public class Permutations{
 
 			nums[i]			= nums[i] ^ nums[fIndex];
 			nums[fIndex]	= nums[i] ^ nums[fIndex];
-			nums[i]			= nums[i] ^ nums[fIndex];
+			nums[i]		g= nums[i] ^ nums[fIndex];
 			i++;
 		}
 	}
