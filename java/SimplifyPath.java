@@ -13,7 +13,6 @@ public class SimplifyPath{
 
 	public static String simplifyPath(String path){
 		String[] folders = path.split("/");
-		System.out.println(folders.length);
 		int index = 0;
 		for(int i = 0, len = folders.length; i < len; i++){
 			if(folders[i].equals(".") || folders[i].equals("")){
