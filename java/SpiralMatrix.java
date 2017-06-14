@@ -20,8 +20,8 @@ public class SpiralMatrix{
 		// int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
 		// int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 		// int[][] matrix = {{1}};
-		int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-
+		//int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+		int[][] matrix = {};
 
 		spiralOrder(matrix).forEach(System.out::println);
 	}
@@ -29,9 +29,12 @@ public class SpiralMatrix{
 	public static List<Integer> spiralOrder(int[][] matrix) {
 		final int ROW_INDEX = 0, COLUMN_INDEX = 1, BOUNDARY_INDEX = 2;
 		List<Integer> spiralList = new ArrayList<>();
+		if (matrix == null || matrix.length == 0){
+			return spiralList;
+		}
 		int[][] dataTable = {{0, 1, 0, -1},
 				{1, 0, -1, 0},
-				{matrix[0].length - 1, matrix.length - 1, 0, 1}};
+				{matrix[0].length - 1, matrix.length - 1, 0, 0}};
 
 		int index = 0;
 		int[] coordinate = {0, 0};
@@ -42,19 +45,19 @@ public class SpiralMatrix{
 
 			if (index == 0 &&
 					coordinate[COLUMN_INDEX] >= dataTable[BOUNDARY_INDEX][index]) {
-				dataTable[BOUNDARY_INDEX][index]--;
+				dataTable[BOUNDARY_INDEX][3]++;
 				index++;
 			} else if (index == 1 &&
 					coordinate[ROW_INDEX] >= dataTable[BOUNDARY_INDEX][index]) {
-				dataTable[BOUNDARY_INDEX][index]--;
+				dataTable[BOUNDARY_INDEX][0]--;
 				index++;
 			} else if (index == 2 &&
 					coordinate[COLUMN_INDEX] <= dataTable[BOUNDARY_INDEX][index]) {
-				dataTable[BOUNDARY_INDEX][index]++;
+				dataTable[BOUNDARY_INDEX][1]--;
 				index++;
 			} else if (index == 3 &&
 					coordinate[ROW_INDEX] <= dataTable[BOUNDARY_INDEX][index]) {
-				dataTable[BOUNDARY_INDEX][index]++;
+				dataTable[BOUNDARY_INDEX][2]++;
 				index = 0;
 			}
 
