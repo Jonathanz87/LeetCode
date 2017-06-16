@@ -6,7 +6,6 @@
 */
 import java.util.List;
 import java.util.LinkedList;
-
 public class NQueensII{
 	public static void main(String[] args) {
 		System.out.println(totalNQueens(13));
