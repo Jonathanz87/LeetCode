@@ -26,7 +26,7 @@ public class NQueens{
 	private static final int[][] DIRECTION = {{0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}};
 
 	public static void main(String[] args) {
-		solveNQueens(4).forEach(System.out::println);
+		solveNQueens2(13).forEach(System.out::println);
 	}
 
 	public static List<List<String>> solveNQueens(int n) {
@@ -86,5 +86,63 @@ public class NQueens{
 			}
 		}
 		return newBoard;
+	}
+
+
+	
+	//solution 2
+
+	private static char[] columnTemplate;
+	public static List<List<String>> solveNQueens2(int n) {
+		List<List<String>> boardList = new LinkedList<>();
+		if(n > 1 && n <= 3){
+			return boardList;
+		}
+
+		columnTemplate = new char[n];
+		int[] columnIndexs = new int[n];
+
+		for(int i = 0; i < n; i++){
+			columnTemplate[i] = '.';
+		}
+
+		NQueens(boardList, columnIndexs, 0, n);
+
+		return boardList;
+	}
+
+
+	public static void NQueens(List<List<String>> solutionList, int[] columnIndexs, final int rowIndex, final int size){
+		if(rowIndex >= size){
+			List<String> temp = new LinkedList<>();
+			for(int i : columnIndexs){
+				columnTemplate[i] = 'Q';
+				temp.add(new String(columnTemplate));
+				columnTemplate[i] = '.';
+			}
+			solutionList.add(temp);
+		}else{
+			for(int i = 0; i < size; i++){
+				columnIndexs[rowIndex] = i;
+				if(isValid(columnIndexs, rowIndex, size)){
+					NQueens(solutionList, columnIndexs, rowIndex + 1, size);
+				}
+			}
+		}
+	}
+
+	public static boolean isValid(int[] columnIndexs, int rowIndex, int size){
+		int leftIndex = columnIndexs[rowIndex];
+		int rightIndex = columnIndexs[rowIndex];
+		int middleIndex = columnIndexs[rowIndex];
+
+		while(--rowIndex >= 0){
+			if((--leftIndex >= 0 && columnIndexs[rowIndex] == leftIndex)
+					|| (++rightIndex < size && columnIndexs[rowIndex] == rightIndex)
+					|| (middleIndex == columnIndexs[rowIndex])){
+				return false;
+			}
+		}
+		return true;
 	}
 }
