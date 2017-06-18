@@ -1,3 +1,3 @@
 #! /bin/bash
 
-rm ./*.class -f;
+rm -f ./*.class;
