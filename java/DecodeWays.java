@@ -24,9 +24,9 @@ public class DecodeWays{
 			return 0;
 		}
 
-		for(int i = 0; i < len; i++){
-			ways[i] = 0;
-		}
+		// for(int i = 0; i < len; i++){
+		// 	ways[i] = 0;
+		// }
 		ways[len] = 1;
 		ways[--len] = s.charAt(len) == '0' ? 0 : 1;
 
