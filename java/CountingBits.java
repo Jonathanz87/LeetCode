@@ -36,9 +36,9 @@ public class CountingBits{
 		return ones;
 	}
 
-	public int[] countBits2(int num) {
+	public static int[] countBits2(int num) {
 		int[] ans = new int[num + 1];
-		for (int i = 1; i <= num; ++i)
+		for (int i = 1; i <= num; i++)
 			ans[i] = ans[i >> 1] + (i & 1);
 		return ans;
 	}
