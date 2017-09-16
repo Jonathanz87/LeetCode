@@ -1,4 +1,5 @@
 /*
+	problem 110
 	Given a binary tree,
 	determine if it is height-balanced.
 	For this problem, a height-balanced binary tree is defined as a binary tree in which
@@ -16,7 +17,6 @@ public class BalancedBinaryTree {
 
 	public static boolean isBalanced(TreeNode root) {
 		return getTreeHeight(root) >= 0;
-
 	}
 
 	public static int getTreeHeight(TreeNode node) {
@@ -28,8 +28,8 @@ public class BalancedBinaryTree {
 		int rightHeight = 0;
 
 		if ((leftHeight = getTreeHeight(node.left)) < 0
-		        || (rightHeight = getTreeHeight(node.right)) < 0
-		        || Math.abs(leftHeight - rightHeight) > 1) {
+				|| (rightHeight = getTreeHeight(node.right)) < 0
+				|| Math.abs(leftHeight - rightHeight) > 1) {
 			return -1;
 		}
 
