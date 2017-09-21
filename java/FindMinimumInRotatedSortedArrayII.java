@@ -10,7 +10,20 @@
 	The array may contain duplicates.
 */
 
-public class FindMinimumInRotatedSortedArrayII{
+/*
+	solution
+	the difference between this problem with problem 31 is that
+	it is possible to have duplicate value for the pivot
+		ex [1 1 1 1 1 1 1] [0 1 1 1]
+			higher range 	lower range
+	therefore, it is impossible to judge the current is in higher range or lower range
+	to solve this problem, the pivot index need to be moved backward to the position where
+	the pivot value smaller than any of values in higher range,
+	in example the back index should be moved to position of 0
+	in worst case, the time complexity is O(n) ex(1 1 1 1 1 1 1 1 1 1 1 1 ...)
+*/
+
+public class FindMinimumInRotatedSortedArrayII {
 	public static void main(String[] args) {
 		int[] arr = new int[args[0].length()];
 
@@ -26,18 +39,21 @@ public class FindMinimumInRotatedSortedArrayII{
 			return -1;
 		}
 
-		int smallest = nums[0];
-
-		if (smallest < nums[nums.length - 1]) {
-			return smallest;
+		int fIndex = 0, bIndex = nums.length - 1;
+		while (fIndex < bIndex && nums[fIndex] == nums[bIndex]) {
+			bIndex--;
 		}
+		int pivot = nums[bIndex];
 
-		for(int i = 1; i < nums.length; i++){
-			if(nums[i] < smallest){
-				return nums[i];
+		while (fIndex < bIndex) {
+			int mIndex = (fIndex + bIndex) / 2;
+			if (nums[mIndex] > pivot) {
+				fIndex = mIndex + 1;
+			} else {
+				bIndex = mIndex;
 			}
 		}
 
-		return smallest;
+		return nums[fIndex];
 	}
 }
