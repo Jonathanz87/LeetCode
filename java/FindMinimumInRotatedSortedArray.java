@@ -39,4 +39,22 @@ public class FindMinimumInRotatedSortedArray {
 		}
 		return nums[fIndex];
 	}
+
+	public static int findMin2(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return -1;
+		}
+		int fIndex = 0, bIndex = nums.length - 1;
+		int pivot = nums[bIndex];
+
+		while (fIndex < bIndex) {
+			int mIndex = (fIndex + bIndex) / 2;
+			if (nums[mIndex] > pivot) {
+				fIndex = mIndex + 1;
+			}else{
+				bIndex = mIndex;
+			}
+		}
+		return nums[fIndex];
+	}
 }

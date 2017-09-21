@@ -21,13 +21,13 @@
 	15		1307674368000		...*5*5*5*...
 	...		...					...
 	20		2432902008176640000 ...*5*5*5*5*...
-
+	
 	the number of 0s if effected by the number of factors of 2s and 5s.
 	there always be enough 2s therefore,
 	the number of 0s is equivalent to the number of factor 5
 */
 public class FactorialTrailingZeroes {
 	public int trailingZeroes(int n) {
-		return n < 5 ? 0 : n / 5;
+		return n == 0 ? 0 : n / 5 + trailingZeroes(n / 5);
 	}
 }

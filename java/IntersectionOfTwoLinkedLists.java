@@ -127,5 +127,3 @@ public class IntersectionOfTwoLinkedLists {
 		return headA;
 	}
 }
-
-
