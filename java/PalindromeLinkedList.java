@@ -18,7 +18,19 @@ public class PalindromeLinkedList{
 		ListNode currentNode = head;
 		ListNode tail = null;
 		while(currentNode != null){
-			
+			ListNode temp = new ListNode(currentNode.val);
+			temp.next = tail;
+			tail = temp;
+			size++;
 		}
+
+		for(int i = 0, len = (size + 1) / 2; i < len; i++){
+			if(head.val != tail.val){
+				return false;
+			}
+			head = head.next;
+			tail = tail.next;
+		}
+		return true;
 	}
 }
