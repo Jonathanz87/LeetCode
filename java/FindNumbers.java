@@ -5,6 +5,10 @@
 		input = {1, 2, 3, 7, 10}, sum = 13, result: {3, 10}
 		input = {4, 6, 8, 9}, sum = 23, result: {}
 */
+
+/*
+	time O(n), use bitMapto reduse memery usage
+*/
 public class FindNumber {
     public static void main(String[] args) {
     	int[] input = new int[args.length - 1];
