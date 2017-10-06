@@ -24,15 +24,18 @@
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class WordLadder {
 
 	public static void main(String[] args) {
 		List<String> wordList = Arrays.asList("hot", "dot", "dog", "lot", "log", "cog");
 		String beginWord = "hit";
-		String endWord = "mmt";
+		String endWord = "cog";
 
-		System.out.println(ladderLength(beginWord, endWord, wordList));
+		System.out.println(ladderLengthBFS(beginWord, endWord, wordList));
 	}
 
 
@@ -78,9 +81,55 @@ public class WordLadder {
 		return differentCount == 1;
 	}
 
+//----------------------------------------BFS-----------------------------------------------------
+/*
+	start from beginWord
+	try all the possible changes of beginWord in wordList, 
+	remove all matches from wordList,
+	then try all the possible changes from worlds in matches list
+	until find the target word in wordList, then return the repeat times.
+*/
 
 
-	public int ladderLength2(String beginWord, String endWord, List<String> wordList) {
+	public static int ladderLengthBFS(String beginWord, String endWord, List<String> wordList) {
+		int pathCount = 1;
+		Set<String> wordDic = new HashSet<>(wordList);
+		List<String> searchList = new LinkedList<>();
+		searchList.add(beginWord);
+		wordDic.remove(beginWord);
+
+		while (searchList.size() != 0) {
+			List<String> tempList = new LinkedList<>();
+			for (String word : searchList) {
+				char[] charWord = word.toCharArray();
+				for (int i = 0; i < charWord.length; i++) {
+					char keep = charWord[i];
+					for (char c = 'a'; c <= 'z'; c++) {
+						charWord[i] = c;
+						String tempWord = new String(charWord);
+						if (wordDic.remove(tempWord)) {
+							if (tempWord.equals(endWord)) {
+								return pathCount + 1;
+							}
+							tempList.add(tempWord);
+						}
+					}
+					charWord[i] = keep;
+				}
+			}
+			searchList = tempList;
+			pathCount++;
+		}
+
+		return 0;
+	}
+
+
+
+//----------------------------------------Two End BFS-----------------------------------------------------
+
+
+	public int ladderLengthTwoEndBFS(String beginWord, String endWord, List<String> wordList) {
 		if (wordList == null || wordList.size() == 0) return 0;
 		Set<String> dic = new HashSet<>(wordList);//直接把list丢进去，创建一个hashset
 		if (!dic.contains(endWord)) return 0;
