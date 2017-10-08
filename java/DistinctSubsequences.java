@@ -22,7 +22,7 @@
 
 public class DistinctSubsequences {
 	public static void main(String[] args) {
-		System.out.println(numDistinctDP(args[0], args[1]));
+		System.out.println(numDistinct(args[0], args[1]));
 	}
 
 	public static int numDistinctDP(String s, String t) {
@@ -32,11 +32,11 @@ public class DistinctSubsequences {
 			pathTable[0][i] = 1;
 		}
 
-		for(int i = 0, tLen = t.length(); i < tLen; i++){
-			for(int j = 0, sLen = s.length(); j < sLen; j++){
-				if(s.charAt(j) == t.charAt(i)){
+		for (int i = 0, tLen = t.length(); i < tLen; i++) {
+			for (int j = 0, sLen = s.length(); j < sLen; j++) {
+				if (s.charAt(j) == t.charAt(i)) {
 					pathTable[i + 1][j + 1] = pathTable[i + 1][j] + pathTable[i][j];
-				}else{
+				} else {
 					pathTable[i + 1][j + 1] = pathTable[i + 1][j];
 				}
 			}
@@ -45,21 +45,54 @@ public class DistinctSubsequences {
 	}
 
 	public static int numDistinct(String s, String t) {
-		return numDistinct(s, t, 0, 0);
+		if (t.length() > s.length()) return 0;
+		return numDistinctDFS(s.toCharArray(), t.toCharArray(), 0, 0, new int[s.length()][t.length()]);
 	}
 
-	public static int numDistinct(String s, String t, int sIndex, int tIndex) {
-		if (tIndex >= t.length()) {
+	public static int numDistinctDFS(char[] s, char[] t, int sIndex, int tIndex, int[][] cache) {
+		if (tIndex >= t.length) {
 			return 1;
+		}
+		if (cache[sIndex][tIndex] != 0) {
+			return cache[sIndex][tIndex] - 1;
 		}
 
 		int count = 0;
-		for (int i = sIndex, len = s.length() - t.length() + tIndex; i <= len; i++) {
-			if (s.charAt(i) == t.charAt(tIndex)) {
-				count += numDistinct(s, t, i + 1, tIndex + 1);
+		char tChar = t[tIndex];
+		for (int i = sIndex, len = s.length - t.length + tIndex; i <= len; i++) {
+			if (s[i] == tChar) {
+				count += numDistinctDFS(s, t, i + 1, tIndex + 1, cache);
 			}
 		}
 
+		cache[sIndex][tIndex] = count + 1;
 		return count;
+	}
+
+	public int numDistinct2(String s, String t) {
+		return dfs(s.toCharArray(), 0, t.toCharArray(), 0, new int[s.length()][t.length()]);
+	}
+
+	private int dfs(char[] sarr, int si, char[] tarr, int ti, int[][] cache) {
+		if (ti >= tarr.length) return 1;
+		if (tarr.length - ti > sarr.length - si) {
+			return 0;
+		}
+		if (cache[si][ti] != 0) {
+			return cache[si][ti] - 1;
+		} else {
+			char tc = tarr[ti];
+			int cnt = 0;
+			for (int i = si; i < sarr.length; i++) {
+				if (sarr[i] != tc) {
+					continue;
+				}
+				int restCnt = dfs(sarr, i + 1, tarr, ti + 1, cache);
+				if (restCnt == 0) break;
+				cnt += restCnt;
+			}
+			cache[si][ti] = cnt + 1;
+			return cnt;
+		}
 	}
 }
