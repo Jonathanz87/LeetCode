@@ -16,6 +16,7 @@ public class Delete NodeInALinkedList {
 	}
 
 	public void deleteNode(ListNode node) {
-		node.val = node.
+		node.val = node.next.val;
+		node.next = node.next.next;
 	}
 }
