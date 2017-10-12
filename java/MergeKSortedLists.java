@@ -16,7 +16,7 @@ public class MergeKSortedLists {
 		node2.next = new ListNode(4);
 		ListNode[] lists = {node1, node2};
 
-		ListNode node = mergeKLists2(lists);
+		ListNode node = mergeKListsMergeSort(lists);
 		while (node != null) {
 			System.out.println(node.val);
 			node = node.next;
@@ -27,6 +27,41 @@ public class MergeKSortedLists {
 		int val;
 		ListNode next;
 		ListNode(int x) { val = x; }
+	}
+
+	public static ListNode mergeKListsMergeSort(ListNode[] lists) {
+		if(lists.length == 0) return null;
+		if(lists.length == 1) return lists[0];
+		return mergeKListsMergeSort(lists, 0, lists.length - 1);
+	}
+	private static ListNode mergeKListsMergeSort(ListNode[] lists, int leftIndex, int rightIndex) {
+		if (leftIndex >= rightIndex) return lists[leftIndex];
+
+		int midIndex = (leftIndex + rightIndex) / 2;
+		return mergeLists(mergeKListsMergeSort(lists, leftIndex, midIndex),
+		                  mergeKListsMergeSort(lists, midIndex + 1, rightIndex));
+	}
+
+	private static ListNode mergeLists(ListNode node1, ListNode node2) {
+		ListNode beforeHead = new ListNode(0);
+		ListNode current = beforeHead;
+		while (node1 != null && node2 != null) {
+			if (node1.val < node2.val) {
+				current.next = node1;
+				node1 = node1.next;
+			} else {
+				current.next = node2;
+				node2 = node2.next;
+			}
+			current = current.next;
+		}
+
+		if (node1 == null) {
+			current.next = node2;
+		} else {
+			current.next = node1;
+		}
+		return beforeHead.next;
 	}
 
 	public static ListNode mergeKListsPriorityQueue(ListNode[] lists) {
@@ -58,7 +93,7 @@ public class MergeKSortedLists {
 			ListNode node = queue.poll();
 			current.next = node;
 			current = current.next;
-			if(node.next != null){
+			if (node.next != null) {
 				queue.add(node.next);
 			}
 		}
