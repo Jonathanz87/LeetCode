@@ -32,6 +32,18 @@ public class GasStation {
 		return -1;
 	}
 
+	/*
+		solution
+		at any station, the difference between gas and cost is gas[i] - cost[i]
+		gas 	5	10	13	16
+		cost 	10	5	10	13
+		diff 	-5	5	3	-3
+		1 if total cost is grater than total gas, 
+			it is impossible to make the travel
+		2 traverse from index 0 to end, 
+			if any time the tank be less than empty, 
+			it is impossible to make the travel
+	*/
 	public int canCompleteCircuit2(int[] gas, int[] cost) {
 		int tank = 0, startIndex = 0, totalUsage = 0;
 
