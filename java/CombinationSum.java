@@ -19,20 +19,7 @@ import java.util.LinkedList;
 
 public class CombinationSum {
 	public static void main(String[] args) {
-		int[] candidates = new int[args.length - 1];
-		for (int i = 0; i < candidates.length; i++) {
-			candidates[i] = Integer.parseInt(args[i]);
-		}
-
-		int target = Integer.parseInt(args[args.length - 1]);
-		List<List<Integer>> result = combinationSum(candidates, target);
-
-		for (List<Integer> numbers : result) {
-			for (Integer i : numbers) {
-				System.out.print(i + " ");
-			}
-			System.out.println();
-		}
+	
 	}
 
 	public static List<List<Integer>> combinationSum(int[] candidates, int target) {
