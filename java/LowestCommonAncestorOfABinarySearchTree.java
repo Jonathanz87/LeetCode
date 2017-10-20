@@ -49,8 +49,6 @@ public class LowestCommonAncestorOfABinarySearchTree {
 		int smaller = Math.min(p.val, q.val);
 		int bigger = Math.max(p.val, q.val);
 
-		TreeNode node = root;
-
 		while (!(root.val >= smaller && root.val <= bigger)) {
 			if (root.val < smaller) {
 				root = root.right;
@@ -58,7 +56,7 @@ public class LowestCommonAncestorOfABinarySearchTree {
 				root = root.left;
 			}
 		}
-		return node;
+		return root;
 	}
 
 
