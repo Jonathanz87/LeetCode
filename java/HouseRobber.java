@@ -11,26 +11,41 @@
 */
 
 public class HouseRobber {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-	}
+    }
 
-	public static int rob(int[] nums) {
-		int[] sumArr = new int[nums.length];
-		for (int i = 0; i < sumArr.length; i++) {
-			sumArr[i] = -1;
-		}
-		return Math.max(rob(nums, sumArr, 0), rob(nums, sumArr, 1));
-	}
+    public static int robDP(int[] nums) {
+        if(nums.length <= 0) return 0;
+        if(nums.length <= 1) return nums[0];
 
-	public static int rob(int[] nums, int[] sumArr, int index) {
-		if (index >= nums.length) {
-			return 0;
-		}
-		if (sumArr[index] == -1) {
-			sumArr[index] = nums[index] +
-			                Math.max(rob(nums, sumArr, index + 2), rob(nums, sumArr, index + 3));
-		}
-		return sumArr[index];
-	}
+        if(nums.length >= 3) {
+            nums[2] += nums[0];
+        }
+
+        for(int i = 3; i < nums.length; i++) {
+            nums[i] += Math.max(nums[i - 2], nums[i - 3]);
+        }
+
+        return Math.max(nums[nums.length - 1], nums[nums.length - 2]);
+    }
+
+    public static int rob(int[] nums) {
+        int[] sumArr = new int[nums.length];
+        for (int i = 0; i < sumArr.length; i++) {
+            sumArr[i] = -1;
+        }
+        return Math.max(rob(nums, sumArr, 0), rob(nums, sumArr, 1));
+    }
+
+    public static int rob(int[] nums, int[] sumArr, int index) {
+        if (index >= nums.length) {
+            return 0;
+        }
+        if (sumArr[index] == -1) {
+            sumArr[index] = nums[index] +
+                            Math.max(rob(nums, sumArr, index + 2), rob(nums, sumArr, index + 3));
+        }
+        return sumArr[index];
+    }
 }
