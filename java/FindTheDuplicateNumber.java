@@ -21,7 +21,7 @@ public class FindTheDuplicateNumber {
 			nums[i] = Integer.parseInt(args[i]);
 		}
 
-		System.out.println(findDuplicate(nums));
+		System.out.println(findDuplicate2(nums));
 	}
 
 	public static int findDuplicate(int[] nums) {
@@ -44,4 +44,26 @@ public class FindTheDuplicateNumber {
 
 		return smallest;
 	}
+
+	/*
+		use array as linked list, same with problem 142. Linked List Cycle II
+	*/
+
+	public static int findDuplicate2(int[] nums) {
+		int slow = nums[0];
+		int fast = nums[nums[0]];
+		while (slow != fast) {
+			slow = nums[slow];
+			fast = nums[nums[fast]];
+		}
+		fast = 0;
+		System.out.println();
+		while (fast != slow) {
+			slow = nums[slow];
+			fast = nums[fast];
+		}
+		return slow;
+	}
+
+
 }
