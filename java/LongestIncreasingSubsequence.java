@@ -53,40 +53,4 @@ public class LongestIncreasingSubsequence {
 
 		return longestCount;
 	}
-
-	public static int lengthOfLISDP2(int[] nums) {
-		if (nums == null || nums.length <= 0) return 0;
-		int[] longestLIS = new int[nums.length];
-		int longestCount = 1;
-		int minNum = Integer.MAX_VALUE;
-		//	longestLIS[nums.length - 1] = 1;
-
-
-		int i = nums.length - 2;
-
-		while (i >= 0 && i < )
-
-			for (int len = nums.length, i = len - 2; i >= 0; i--) {
-				if (lonestCount == 1 || nums[i] < minNum) {
-					longestCount++;
-					minNum = Math.max(nums[i], minNum);
-
-				}
-
-				// int max = 0;
-				// for (int j = i + 1; j < len; j++) {
-				// 	if (nums[j] > nums[i]) {
-				// 		max = Math.max(max, longestLIS[j]);
-				// 	}
-				// }
-				// longestLIS[i] = ++max;
-				//longestCount++;
-				// if(max >= longestCount){
-
-				//minNum = Math.max(nums[i], minNum);
-				// }
-			}
-
-		return longestCount;
-	}
 }
