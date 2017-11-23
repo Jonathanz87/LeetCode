@@ -46,4 +46,30 @@ public class HIndex {
 		int hIndex = size - leftIndex;
 		return hIndex <= citations[leftIndex] ? hIndex : 0;
 	}
+
+	/*
+		solution
+		get count for each number of citation and count of sum of all citations > than size
+	*/
+
+	public static int hIndex2(int[] citations) {
+		int size = citations.length;
+		int[] count = new int[size + 1];
+		int sum = 0;
+
+		for (int citation : citations) {
+			if (citation >= size) {
+				count[size]++;
+			} else {
+				count[citation]++;
+			}
+		}
+
+		for (int i = size; i >= 0; i--) {
+			sum += count[i];
+			if (sum >= i)
+				return i;
+		}
+		return 0;
+	}
 }
