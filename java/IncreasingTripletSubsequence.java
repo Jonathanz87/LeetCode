@@ -29,12 +29,12 @@ public class Increasing Triplet Subsequence {
         int big = Integer.MAX_VALUE;
 
         for(int num : nums) {
-            if(num < small) {
+            if(num <= small) {
                 small = num;
-            } else if(num < big) {
+            } else if(num <= big) {
                 big = num;
             } else {
-                return ture;
+                return true;
             }
         }
         return false;
