@@ -1,4 +1,5 @@
 /*
+	problem 637
 	Given a non-empty binary tree,
 	return the average value of the nodes on each level in the form of an array.
 	Example 1:
@@ -46,10 +47,10 @@ public class AverageOfLevelsInBinaryTree {
 			if (node == null) {
 				if (queue.size() != 0) {
 					queue.add(null);
-					averageList.add(average /= count)
-					average = 0;
-					count = 0;
 				}
+				averageList.add(average /= count);
+				average = 0;
+				count = 0;
 			} else {
 				if (node.left != null) {
 					queue.add(node.left);
