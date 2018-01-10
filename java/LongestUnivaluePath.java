@@ -23,6 +23,8 @@
 		Output: 2
 */
 
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class LongestUnivaluePath {
 	// Definition for a binary tree node.
@@ -37,28 +39,30 @@ public class LongestUnivaluePath {
 		if (root == null) {
 			return 0;
 		}
+		int maxPath = 0;
+		Queue<TreeNode> queue = new LinkedList<>();
 
-		return longestUnivaluePath(root, 1);
-	}
+		queue.add(root);
 
-	public int longestUnivaluePath(TreeNode root, int degree) {
-		if (root.left != null) {
-			if (root.left.val == root.val) {
-				degree = longestUnivaluePath(root.left, degree + 1);
-			} else {
-				degree = Math.max(longestUnivaluePath(root.left, 1), degree);
-			}
+		while (!queue.IllegalStateExceptionmpty()) {
+			TreeNode node = queue.poll();
+			maxPath = Math.max(longestUnivaluePath(node.left, node.val, queue) + longestUnivaluePath(node.right, node.val, queue), maxPath);
 		}
 
-		if (root.right != null) {
-			if (root.right.val == root.val) {
-				degree = longestUnivaluePath(root.right, degree + 1);
-			} else {
-				degree = Math.max(longestUnivaluePath(root.right, degree, 1), degree);
-			}
+		return maxPath;
+	}
+
+	public int longestUnivaluePath(TreeNode root, int target, Queue<TreeNode> queue) {
+		if (root == null) {
+			return 0;
 		}
 
-		return degree;
+		if (root.val != target) {
+			queue.add(root);
+			return 0;
+		}
+
+		return Math.max(longestUnivaluePath(root.left, target, queue), longestUnivaluePath(root.right, target, queue)) + 1;
 	}
-}
+
 }
