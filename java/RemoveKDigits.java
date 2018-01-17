@@ -22,6 +22,11 @@
 		and it is left with nothing which is 0.
 */
 
+/*
+	bug "9999999999991"
+	8
+*/
+
 public class RemoveKDigits {
 	public static String removeKdigits(String num, int k) {
 		if (num.length() <= k) return "0";
@@ -50,6 +55,11 @@ public class RemoveKDigits {
 			digitsStack[++stackIndex] = numChar[numIndex++];
 		}
 
-		return new String(digitsStack);
+		int noneZeroIndex = 0;
+		while(noneZeroIndex < STACK_LEN && digitsStack[noneZeroIndex] == '0'){
+			noneZeroIndex++;
+		}
+
+		return noneZeroIndex >= STACK_LEN ? "0" : new String(digitsStack).substring(noneZeroIndex);
 	}
 }
