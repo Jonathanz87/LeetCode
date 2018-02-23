@@ -32,11 +32,11 @@ public class CombinationSumIV{
 			nums[i] = Integer.parseInt(args[i]);
 		}
 
-		System.out.println(combinationSum4(nums, Integer.parseInt(args[nums.length])));
+		System.out.println(combinationSum42(nums, Integer.parseInt(args[nums.length])));
 	}
 
 
-	private final Map<Integer, Integer> COMBINATION_MAP = new HashMap<>();
+	private static final Map<Integer, Integer> COMBINATION_MAP = new HashMap<>();
 	public static int combinationSum4(int[] nums, int target) {
         if(target < 0){
         	return 0;
@@ -54,6 +54,39 @@ public class CombinationSumIV{
         }
  
         COMBINATION_MAP.put(target, sum);
+        return sum;
+    }
+
+    public static int combinationSum42(int[] nums, int target) {
+    	int[] map = new int[target + 1];
+    	if(nums.length == 0)
+        	return 0;
+        return dsf(nums, target, map);
+    }
+
+    private static int dsf(int[] nums, int target, int[] map){
+    	if(target < 0){
+        	return 0;
+        } else if(target == 0){
+        	return 1;
+        }
+        if(map[target] > 0){
+        	return map[target] - 1;
+        }
+        if(map[target] < 0){
+        	return 0;
+        }
+
+        int sum = 0;
+        for(int n : nums){
+        	sum += dsf(nums, target - n, map);
+        }
+        if(sum == 0){
+        	map[target] = -1;
+        }else{
+        	map[target] = sum + 1;
+        }
+
         return sum;
     }
 }
