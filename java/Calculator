@@ -1,0 +1,22 @@
+public class Calculator{
+	public static void main(String[] args){
+		System.out.println(calculate(args[0]));
+	}
+	private static int calculate(String str){
+		int result = 0;
+		int num = 0;
+		boolean isPrePlus = true;
+		for(char c : str.toCharArray()){
+			if(c == '+' || c == '-'){
+				result += isPrePlus ? num : -num;
+				isPrePlus = c == '+';
+				num = 0;
+			}else{
+				num = num * 10 + c - '0';
+			}
+		}
+		result += isPrePlus ? num : -num;
+		return result;
+	}
+
+}
