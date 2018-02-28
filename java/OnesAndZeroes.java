@@ -14,27 +14,34 @@ public class OnesAndZeroes {
 	}
 
 	public static int findMaxForm(String[] strs, int m, int n) {
-		return findMaxForm(strs, m, n, 0, 0);
+		int[][] digitCount = new int[2][strs.length];
+		for (int i = 0, len = strs.length; i < len; i++) {
+			for (char c : strs[i].toCharArray()) {
+				if (c == '0') {
+					digitCount[0][i]++;
+				} else {
+					digitCount[1][i]++;
+				}
+			}
+		}
+
+		return findMaxForm(digitCount, m, n, 0, 0);
 	}
 
-	public static int findMaxForm(String[] strs, int m, int n, int i, int count) {
+	public static int findMaxForm(int[][] digitCount, int m, int n, int i, int count) {
 		if (n < 0 || m < 0) {
 			return count - 1;
 		}
-		if (i >= strs.length || (n == 0 && m == 0)) {
+		if (i >= digitCount[0].length || (n == 0 && m == 0)) {
 			return count;
 		}
 
-		int len1 = findMaxForm(strs, m, n, i + 1, count);
+		int len1 = findMaxForm(digitCount, m, n, i + 1, count);
 
-		for (char c : strs[i].toCharArray()) {
-			if (c == '0') {
-				m--;
-			} else {
-				n--;
-			}
-		}
-		int len2 = findMaxForm(strs, m, n, i + 1, count + 1);
+		m -= digitCount[0][i];
+		n -= digitCount[1][i];
+
+		int len2 = findMaxForm(digitCount, m, n, i + 1, count + 1);
 		return Math.max(len2, len1);
 	}
 }
