@@ -24,7 +24,7 @@ public class PartitionEqualSubsetSum {
 		for (int i = 0; i < nums.length; i++) {
 			nums[i] = Integer.parseInt(args[i]);
 		}
-		System.out.println(canPartition(nums));
+		System.out.println(canPartitionDSF(nums));
 	}
 
 	//DP
@@ -45,5 +45,46 @@ public class PartitionEqualSubsetSum {
 		}
 
 		return dp[sum];
+	}
+
+	//DSF
+	public static boolean canPartitionDSF(int[] nums) {
+		int sum = IntStream.of(nums).sum();
+		if (sum % 2 != 0) {
+			return false;
+		}
+
+		sum /= 2;
+		if (nums[nums.length - 1] > sum) {
+			return false;
+		}
+		int[] sums = new int[2];
+
+		return DSF(nums, sums, nums.length - 1, sum);
+	}
+
+	public static boolean DSF(int[] nums, int[] sums, int index, int target) {
+		if (index < 0) {
+			return false;
+		}
+
+		int num = nums[index];
+
+		if (sums[0] + num == target || sums[1] + num == target) {
+			return true;
+		}
+
+		sums[0] += num;
+		if (sums[0] < target && DSF(nums, sums, index - 1, target)) {
+			return true;
+		}
+		sums[0] -= num;
+
+		sums[1] += num;
+		if (sums[1] < target && DSF(nums, sums, index - 1, target)) {
+			return true;
+		}
+		sums[1] -= num;
+		return false;
 	}
 }
