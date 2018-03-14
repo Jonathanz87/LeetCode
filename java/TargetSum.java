@@ -1,14 +1,14 @@
 /*
 	problem 494
-	You are given a list of non-negative integers, 
-	a1, a2, ..., an, and a target, S. 
-	Now you have 2 symbols + and -. 
+	You are given a list of non-negative integers,
+	a1, a2, ..., an, and a target, S.
+	Now you have 2 symbols + and -.
 	For each integer, you should choose one from + and - as its new symbol.
 	Find out how many ways to assign symbols to make sum of integers equal to target S.
 	Example 1:
-		Input: nums is [1, 1, 1, 1, 1], S is 3. 
+		Input: nums is [1, 1, 1, 1, 1], S is 3.
 		Output: 5
-		Explanation: 
+		Explanation:
 		-1+1+1+1+1 = 3
 		+1-1+1+1+1 = 3
 		+1+1-1+1+1 = 3
@@ -43,17 +43,42 @@ public class TargetSum {
 		return dfs(nums, i + 1, sum + nums[i], S) + dfs(nums, i + 1, sum - nums[i], S);
 	}
 
-	// public static int findTargetSumWaysDP(int[] nums, int S) {
-	// 	int sum = 0;
+	/*
+		DP solution
+		first, calculate the sum of all numbers, sum(T)
+		the maximum possible target sum can not be greater that the Total sum
 
-	// 	for (int n : nums) {
-	// 		sum += n;
-	// 	}
+		the total sum(Total) = sum[Positive] + sum[Negative]
+		the target sum = sum(P) - sum[N]
+		sum(T) + sum = sum[P] + sum[N] + sum[P] - sum[N]
+					 = 2 * sum[P]
 
-	// 	int[] dp = new int[sum + 1];
+		so sum(T) + sum should be even
 
-	// 	for(int n : nums){
-	// 		for(int i = sum; i )
-	// 	}
-	// }
+		now just calculate the possibility to get sum[P] instead the possibility to get target
+	*/
+	public static int findTargetSumWaysDP(int[] nums, int S) {
+		int sum = 0;
+
+		for (int n : nums) {
+			sum += n;
+		}
+
+		if (sum < S || (sum + S % 2 == 1)) {
+			return false;
+		}
+
+		sum = (sum + S) / 2;
+
+		int[] dp = new int[sum + 1];
+		dp[0] = 1;
+
+		for (int n : nums) {
+			for (int i = sum; i >= n; i++) {
+				dp[i] += dp[i - n];
+			}
+		}
+
+		return dp[sum];
+	}
 }
