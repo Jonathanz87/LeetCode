@@ -1,0 +1,64 @@
+/*
+	problem 796
+	We are given two strings, A and B.
+	A shift on A consists of taking string A and moving the leftmost character to the rightmost position.
+	For example, if A = 'abcde', then it will be 'bcdea' after one shift on A.
+	Return True if and only if A can become B after some number of shifts on A.
+	Example 1:
+		Input: A = 'abcde', B = 'cdeab'
+		Output: true
+	Example 2:
+		Input: A = 'abcde', B = 'abced'
+		Output: false
+	Note:
+		A and B will have length at most 100.
+*/
+
+import java.util.Arrays;
+
+public class RotateString {
+	public static void main(String[] args) {
+		System.out.println(rotateStringTwoStringAppend(args[0], args[1]));
+	}
+
+	public static boolean rotateString(String A, String B) {
+		if (A.length() != B.length() || A.length() <= 0) return false;
+		if (A.length() == 1) return A.equals(B);
+
+		int size = A.length();
+		boolean[] pre = new boolean[size];
+		boolean[] cur = new boolean[size];
+
+		Arrays.fill(pre, true);
+
+		for (int i = 0, len = size - 1; i < len; i++) {
+			char c = B.charAt(i);
+
+			cur[0] = pre[pre.length - 1] && c == A.charAt(0);
+
+			for (int j = 1; j < size; j++) {
+				cur[j] = pre[j - 1] && c == A.charAt(j);
+			}
+			boolean[] temp = pre;
+			pre = cur;
+			cur = temp;
+		}
+
+		char c = B.charAt(size - 1);
+		if (pre[pre.length - 1] && c == A.charAt(0))
+			return true;
+
+		for (int i = 1; i < size; i++) {
+			if (pre[i - 1] && c == A.charAt(i)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	//faster
+	public static boolean rotateStringTwoStringAppend(String A, String B) {
+		return (A + A).contains(B);
+	}
+}
