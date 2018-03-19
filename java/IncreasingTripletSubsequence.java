@@ -11,6 +11,7 @@
 		Given [5, 4, 3, 2, 1],
 		return false.
 */
+
 public class Increasing Triplet Subsequence {
     public static void main(String[] args) {
         int[] nums = new int[args.length];
