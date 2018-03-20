@@ -47,12 +47,12 @@ public class FriendCircles {
 		for (int i = 0; i < size; i++) {
 			if (visited[i]) continue;
 			stack[++stactPt] = i;
+			visited[i] = true;
 			while (stactPt >= 0) {
 				int k = stack[stactPt--];
-				if (visited[k]) continue;
-				visited[k] = true;
 				for (int j = 0; j < size; j++) {
 					if (M[k][j] == 1 && !visited[j]) {
+						visited[k] = true;
 						stack[++stactPt] = j;
 					}
 				}
