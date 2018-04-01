@@ -18,6 +18,8 @@ public class PermutationInString {
 	public static void main(String[] args) {
 		System.out.println(checkInclusion(args[0], args[1]));
 	}
+
+	//O(n)
 	public static boolean checkInclusion(String s1, String s2) {
 		if (s1.length() > s2.length()) return false;
 
