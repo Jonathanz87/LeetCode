@@ -32,12 +32,13 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
 
 		int[] letterCt = new int[26];
 		int maxSize = 0;
+		int beginIndex = leftIndex;
 
 		for (int i = leftIndex; i <= rightIndex; i++) {
 			letterCt[s.charAt(i) - 'a']++;
 		}
 
-		for (int i = leftIndex, beginIndex = leftIndex; i <= rightIndex; i++) {
+		for (int i = leftIndex; i <= rightIndex; i++) {
 			if (letterCt[s.charAt(i) - 'a'] < k) {
 				maxSize = Math.max(longestSubstring(s, k, beginIndex, i - 1), maxSize);
 				beginIndex = i + 1;
@@ -45,7 +46,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
 		}
 
 		return (beginIndex == leftIndex)
-		       ? (rightIndex - leftIndex + 1) 
+		       ? (rightIndex - leftIndex + 1)
 		       : Math.max(longestSubstring(s, k, beginIndex, rightIndex), maxSize);
 	}
 }
