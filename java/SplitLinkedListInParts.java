@@ -39,7 +39,76 @@ public class SplitLinkedListInParts {
 		ListNode(int x) { val = x; }
 	}
 
+	public static ListNode[] splitListToParts2(ListNode root, int k) {
+		ListNode[] result = new ListNode[k];
+		int ct = 0;
+
+		ListNode node = root;
+		ListNode beforeHead = new ListNode(0);
+		beforeHead.next = root;
+
+		while (node != null) {
+			ct++;
+			node = node.next;
+		}
+
+		int reminder = ct % k;
+		ct = ct / k;
+		int r = 0;
+
+		node = beforeHead;
+		for (int i = 0; i < result.length; i++) {
+			result[i] = node.next;
+
+			for (int j = 0; j < ct; j++) {
+				node = node.next;
+			}
+
+			if (r++ < reminder) {
+				node = node.next;
+			}
+
+			beforeHead.next = node.next;
+			node.next = null;
+			node = beforeHead;
+		}
+
+		return result;
+	}
+
 	public static ListNode[] splitListToParts(ListNode root, int k) {
+		ListNode beforeHead = new ListNode(0);
+		ListNode[] result = new ListNode[k];
+		beforeHead.next = root;
+		result[0] = root;
+		for (int i = 1; i < result.length; i++) {
+			result[i] = beforeHead;
+		}
+
+		while (result[0] != null) {
+			for (int i = 1; i < result.length && result[0] != null; i++) {
+				for (int j = i; j < result.length; j++) {
+					result[j] = result[j].next;
+				}
+				result[0] = result[0].next;
+			}
+			result[0] = result[0].next;
+		}
+
+		result[0] = beforeHead;
+
+		for (int i = 0; i < result.length; i++) {
+			if (result[i] != null) {
+				ListNode t = result[i];
+				result[i] = result[i].next;
+				t.next = null;
+			}
+		}
+
+		return result;
+	}
+
+	public static ListNode[] splitListToPartsNoOrder(ListNode root, int k) {
 		ListNode beforeHead = new ListNode(0);
 		ListNode[] result = new ListNode[k];
 		beforeHead.next = root;
@@ -71,13 +140,6 @@ public class SplitLinkedListInParts {
 			ListNode temp = result[i];
 			result[i] = result[i].next;
 			temp.next = null;
-		}
-
-		int l = 1, r = result.length - 1;
-		while (l < r) {
-			ListNode t = result[l];
-			result[l] = result[r];
-			result[r] = t;
 		}
 
 		return result;
