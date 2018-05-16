@@ -8,8 +8,10 @@ public class MinimumDistanceBetweenBstNodes {
 	}
 
 	public int minDiffInBST(TreeNode root) {
-        
-    }
 
-    private TreeNode get
+	}
+
+	private TreeNode getBiggest(TreeNode node) {
+
+	}
 }
