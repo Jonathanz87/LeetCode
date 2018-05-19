@@ -35,13 +35,59 @@ public class PacificAtlanticWaterFlow {
 			{5, 1, 1, 2, 4}
 		};
 
-		List<int[]> list = pacificAtlantic(matrix);
+		List<int[]> list = pacificAtlanticDsf(matrix);
 		for (int[] i : list) {
 			System.out.println(i[0] + " - " + i[1]);
 		}
 	}
 
-	public static List<int[]> pacificAtlantic(int[][] matrix) {
+	public static List<int[]> pacificAtlanticDsf(int[][] matrix) {
+		List<int[]> result = new LinkedList<>();
+		if (matrix == null || matrix.length <= 0 || matrix[0].length <= 0) return result;
+		int m = matrix.length, n = matrix[0].length;
+		boolean[][] pacific = new boolean[m][n];
+		boolean[][] atlantic = new boolean[m][n];
+
+		for (int j = 0; j < n; j++) {
+			dsf(matrix, pacific, 0, j, matrix[0][j]);
+		}
+
+		for (int i = 1; i < m; i++) {
+			dsf(matrix, pacific, i, 0, matrix[i][0]);
+		}
+
+		for (int j = 0, i = m - 1; j < n; j++) {
+			dsf(matrix, atlantic, i, j, matrix[i][j]);
+		}
+
+		for (int i = m - 2, j = n - 1; i >= 0; i--) {
+			dsf(matrix, atlantic, i, j, matrix[i][j]);
+		}
+
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (pacific[i][j] && atlantic[i][j]) {
+					result.add(new int[] {i, j});
+				}
+			}
+		}
+
+		return result;
+	}
+
+	private static void dsf(int[][] matrix, boolean[][] visited, int x, int y, int preValue) {
+		if (x < 0 || y < 0 || x >= matrix.length || y >= matrix[0].length ||
+		        matrix[x][y] < preValue || visited[x][y]) {
+			return;
+		}
+		visited[x][y] = true;
+		dsf(matrix, visited, x + 1, y, matrix[x][y]);
+		dsf(matrix, visited, x - 1, y, matrix[x][y]);
+		dsf(matrix, visited, x, y + 1, matrix[x][y]);
+		dsf(matrix, visited, x, y - 1, matrix[x][y]);
+	}
+
+	public static List<int[]> pacificAtlanticBsf(int[][] matrix) {
 		if (matrix == null || matrix.length <= 0 || matrix[0].length <= 0) return new LinkedList<>();
 
 		int m = matrix.length, n = matrix[0].length;
