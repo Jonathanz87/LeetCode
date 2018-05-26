@@ -21,6 +21,44 @@
 
 public class SurroundedRegions {
 	public void solve(char[][] board) {
+		if (board == null || board.length <= 0 || board[0].length <= 0) return;
+		for (int i = 0; i < board.length; i++) {
+			if (board[i][0] == 'O') {
+				dsf(board, i, 0);
+			}
+			if (board[i][board[0].length - 1] == 'O') {
+				dsf(board, i, board[0].length - 1);
+			}
+		}
+
+		for (int j = 0; j < board[0].length; j++) {
+			if (board[0][j] == 'O') {
+				dsf(board, 0, j);
+			}
+			if (board[board.length - 1][j] == 'O') {
+				dsf(board, board.length - 1, j);
+			}
+		}
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				board[i][j] = board[i][j] == '.' ? 'O' : 'X';
+			}
+		}
+
+	}
+
+	private static void dsf(char[][] board, int x, int y) {
+		if (x < 0 || y < 0 || x >= board.length || y >= board[0].length ||
+		        board[x][y] != 'O') {
+			return;
+		}
+
+		board[x][y] = '.';
+		dsf(board, x + 1, y);
+		dsf(board, x - 1, y);
+		dsf(board, x, y + 1);
+		dsf(board, x, y - 1);
 
 	}
 }
