@@ -1,7 +1,7 @@
 /*
 	problem 844
-	Given two strings S and T, 
-	return if they are equal when both are typed into empty text editors. 
+	Given two strings S and T,
+	return if they are equal when both are typed into empty text editors.
 	# means a backspace character.
 	Example 1:
 		Input: S = "ab#c", T = "ad#c"
@@ -28,6 +28,37 @@
 */
 
 public class BackspaceStringCompare {
-	public boolean backspaceCompare(String S, String T) {
+	public static void main(String[] args) {
+		System.out.println(backspaceCompare(args[0], args[1]));
+	}
+
+	public static boolean backspaceCompare(String S, String T) {
+		int sIndex = S.length(), tIndex = T.length();
+		while ((sIndex = findLast(S, sIndex)) >= 0 & (tIndex = findLast(T, tIndex)) >= 0) {
+			if (S.charAt(sIndex) != T.charAt(tIndex)) {
+				return false;
+			}
+		}
+
+		return sIndex == -1 && tIndex == -1;
+	}
+
+	private static int findLast(String s, int index) {
+		index--;
+		int backCt = 0;
+		while (index >= 0) {
+			if (s.charAt(index) == '#') {
+				backCt++;
+			} else {
+				if (backCt > 0) {
+					backCt--;
+				} else {
+					break;
+				}
+			}
+			index--;
+		}
+
+		return index;
 	}
 }
