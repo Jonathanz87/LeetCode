@@ -32,7 +32,7 @@ public class TopKFrequentElements {
 		int max = Integer.MIN_VALUE;
 
 		for (int n : nums) {
-			int ct = frequentMap.getOrDefault(n, 0) + 1;
+			Integer ct = frequentMap.getOrDefault(n, 0) + 1;
 			frequentMap.put(n, ct);
 			max = Math.max(ct, max);
 		}
@@ -40,7 +40,7 @@ public class TopKFrequentElements {
 		List<Integer>[] bucket = new LinkedList[max + 1];
 
 		for (Map.Entry<Integer, Integer> e : frequentMap.entrySet()) {
-			int i = e.getValue();
+			Integer i = e.getValue();
 			if (bucket[i] == null) {
 				bucket[i] = new LinkedList<>();
 			}
