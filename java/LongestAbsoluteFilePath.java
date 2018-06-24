@@ -37,7 +37,7 @@ public class LongestAbsoluteFilePath {
 	public static void main(String[] args) {
 		System.out.println(lengthLongestPath(args[0]));
 	}
-	public static int lengthLongestPath(String input) {
+	public static int lengthLongestPath2(String input) {
 		LinkedList<Integer> dirLengthStack = new LinkedList<>();
 		dirLengthStack.add(0);
 
