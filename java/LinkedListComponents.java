@@ -32,8 +32,25 @@ public class LinkedListComponents {
 		ListNode next;
 		ListNode(int x) { val = x; }
 	}
-	
-	public int numComponents(ListNode head, int[] G) {
 
+	public int numComponents(ListNode head, int[] G) {
+		boolean[] contains = new boolean[10000];
+		boolean last = false;
+		int result = 0;
+		for (int n : G) {
+			contains[n] = true;
+		}
+
+		while (head != null) {
+			if (contains[head.val] && !last) {
+				result++;
+				last = true;
+			} else if (!contains[head.val]) {
+				last = false;
+			}
+			head = head.next;
+		}
+
+		return result;
 	}
 }
