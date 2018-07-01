@@ -24,8 +24,39 @@
 		You need to output 2.
 */
 
-public class AssignCookies {
-	public int findContentChildren(int[] g, int[] s) {
+import java.util.Arrays;
 
+public class AssignCookies {
+	public static void main(String[] args) {
+		String[] gString = args[0].split(" ");
+		String[] sString = args[1].split(" ");
+		int[] g = new int[gString.length];
+		int[] s = new int[sString.length];
+
+		for (int i = 0; i < g.length; i++) {
+			g[i] = Integer.parseInt(gString[i]);
+		}
+		for (int i = 0; i < s.length; i++) {
+			s[i] = Integer.parseInt(sString[i]);
+		}
+
+		System.out.println(findContentChildren(g, s));
+	}
+	public static int findContentChildren(int[] g, int[] s) {
+		Arrays.sort(g);
+		Arrays.sort(s);
+		int gi = 0;
+		int si = 0;
+		int ct = 0;
+
+		while (gi < g.length && si < s.length) {
+			if (s[si] >= g[gi]) {
+				gi++;
+				ct++;
+			}
+			si++;
+		}
+
+		return ct;
 	}
 }
