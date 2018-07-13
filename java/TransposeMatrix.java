@@ -13,7 +13,6 @@
 		1 <= A.length <= 1000
 		1 <= A[0].length <= 1000
 */
-
 public class TransposeMatrix {
 	public int[][] transpose(int[][] A) {
 		if (A == null || A.length == 0 || A[0].length == 0) return null;
