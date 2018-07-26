@@ -50,7 +50,7 @@ public class LongestWordInDictionaryThroughDeleting {
         return wIndex == w.length();
     }
 
-    private boolean isSubsequence(String t, String s) {
+    private boolean isSubsequenceIndexOf(String t, String s) {
         for (int i = 0, pos = 0; i < s.length(); i++, pos++) {
             pos = t.indexOf(s.charAt(i), pos);
             if (pos == -1) return false;
