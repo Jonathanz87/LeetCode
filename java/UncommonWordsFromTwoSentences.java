@@ -18,7 +18,7 @@
 */
 
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 public class UncommonWordsFromTwoSentences {
 	public static void main(String[] args) {
@@ -28,8 +28,8 @@ public class UncommonWordsFromTwoSentences {
 	}
 
 	public static String[] uncommonFromSentences(String A, String B) {
-		Set<String> allWords = new TreeSet<>();
-		Set<String> repeatedWords = new TreeSet<>();
+		Set<String> allWords = new HashSet<>();
+		Set<String> repeatedWords = new HashSet<>();
 
 		for (String s : A.split("\\s")) {
 			if (allWords.contains(s)) {
@@ -50,7 +50,6 @@ public class UncommonWordsFromTwoSentences {
 		for (String s : repeatedWords) {
 			allWords.remove(s);
 		}
-
 
 		return allWords.toArray(new String[allWords.size()]);
 	}
