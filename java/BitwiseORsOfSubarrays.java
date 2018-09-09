@@ -32,7 +32,10 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class BitwiseORsOfSubarrays {
-	public int subarrayBitwiseORs(int[] A) {
+	public static void main(String[] args) {
+		System.out.println(subarrayBitwiseORs(new int[] {});
+	}
+	public static int subarrayBitwiseORs(int[] A) {
 		Set<Integer> resultSet = new HashSet<>();
 		for (int i : A) {
 			resultSet.add(i);
@@ -46,5 +49,18 @@ public class BitwiseORsOfSubarrays {
 		}
 
 		return resultSet.size();
+	}
+
+	public int subarrayBitwiseORs2(int[] A) {
+		Set<Integer> res = new HashSet<>(), cur = new HashSet<>(), cur2;
+		for (Integer i : A) {
+			cur2 = new HashSet<>();
+			cur2.add(i);
+			for (Integer j : cur) {
+				cur2.add(i | j);
+			}
+			res.addAll(cur = cur2);
+		}
+		return res.size();
 	}
 }
