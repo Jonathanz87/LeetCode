@@ -1,13 +1,13 @@
 /*
 	problem 764
-	In a 2D grid from (0, 0) to (N-1, N-1), every cell contains a 1, 
-	except those cells in the given list mines which are 0. 
-	What is the largest axis-aligned plus sign of 1s contained in the grid? 
+	In a 2D grid from (0, 0) to (N-1, N-1), every cell contains a 1,
+	except those cells in the given list mines which are 0.
+	What is the largest axis-aligned plus sign of 1s contained in the grid?
 	Return the order of the plus sign. If there is none, return 0.
-	An "axis-aligned plus sign of 1s of order k" has some center grid[x][y] = 1 
-	along with 4 arms of length k-1 going up, down, left, and right, and made of 1s. 
-	This is demonstrated in the diagrams below. 
-	Note that there could be 0s or 1s beyond the arms of the plus sign, 
+	An "axis-aligned plus sign of 1s of order k" has some center grid[x][y] = 1
+	along with 4 arms of length k-1 going up, down, left, and right, and made of 1s.
+	This is demonstrated in the diagrams below.
+	Note that there could be 0s or 1s beyond the arms of the plus sign,
 	only the relevant area of the plus sign is checked for 1s.
 	Examples of Axis-Aligned Plus Signs of Order k:
 	Order 1:
@@ -56,8 +56,63 @@
 		(Additionally, programs submitted in C, C++, or C# will be judged with a slightly smaller time limit.)
 */
 
-public class LargestPlusSign{
-    public int orderOfLargestPlusSign(int N, int[][] mines) {
-        
-    }
+public class LargestPlusSign {
+	public int orderOfLargestPlusSign(int N, int[][] mines) {
+		if ((N == 1 && mines.length < 1) || (N == 2 && mines.length < 4)) return 1;
+		int[][] board = new int[N][N];
+		int max = -1;
+		for (int[] mine : mines) {
+			board[mine[0]][mine[1]] = -1;
+		}
+
+		// up-down
+		for (int y = 0; y < N; y++) {
+			for (int x = 0; x < N; x++) {
+				if (board[x][y] >= 0) {
+					board[x][y] = getHeight(board, x - 1, y) + 1;
+				}
+			}
+		}
+
+		// left-right
+		for (int x = 0; x < N; x++) {
+			for (int y = 0; y < N; y++) {
+				if (board[x][y] >= 0) {
+					board[x][y] = Math.min(getHeight(board, x, y - 1) + 1, board[x][y]);
+				}
+			}
+		}
+
+		// down-up
+		for (int y = N - 1; y >= 0; y--) {
+			for (int x = N - 1; x >= 0; x--) {
+				if (board[x][y] >= 0) {
+					board[x][y] = Math.min(getHeight(board, x + 1, y) + 1, board[x][y]);
+				}
+			}
+		}
+
+		// right-left
+		for (int x = N - 1; x >= 0; x--) {
+			for (int y = N - 1; y >= 0; y--) {
+				if (board[x][y] >= 0) {
+					board[x][y] = Math.min(getHeight(board, x, y + 1) + 1, board[x][y]);
+					max = Math.max(board[x][y], max);
+				}
+			}
+		}
+
+		return max + 1;
+	}
+
+	private int getHeight(int[][] board, int x, int y) {
+		int height = -1;
+		try {
+			height = board[x][y];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			height = -1;
+		}
+
+		return height;
+	}
 }
