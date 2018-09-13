@@ -65,54 +65,31 @@ public class LargestPlusSign {
 			board[mine[0]][mine[1]] = -1;
 		}
 
-		// up-down
 		for (int y = 0; y < N; y++) {
-			for (int x = 0; x < N; x++) {
-				if (board[x][y] >= 0) {
-					board[x][y] = getHeight(board, x - 1, y) + 1;
-				}
+			// up-down
+			for (int x = 0, ct = -1; x < N; x++) {
+				board[x][y] = board[x][y] >= 0 ? ++ct : (ct = -1);
+			}
+
+			//down-up
+			for (int x = N - 1, ct = -1; x >= 0; x--) {
+				board[x][y] = board[x][y] >= 0 ? Math.min(++ct, board[x][y]) : (ct = -1);
 			}
 		}
 
-		// left-right
 		for (int x = 0; x < N; x++) {
-			for (int y = 0; y < N; y++) {
-				if (board[x][y] >= 0) {
-					board[x][y] = Math.min(getHeight(board, x, y - 1) + 1, board[x][y]);
-				}
+			// left-right
+			for (int y = 0, ct = -1; y < N; y++) {
+				board[x][y] = board[x][y] >= 0 ? Math.min(++ct, board[x][y]) : (ct = -1);
 			}
-		}
 
-		// down-up
-		for (int y = N - 1; y >= 0; y--) {
-			for (int x = N - 1; x >= 0; x--) {
-				if (board[x][y] >= 0) {
-					board[x][y] = Math.min(getHeight(board, x + 1, y) + 1, board[x][y]);
-				}
-			}
-		}
-
-		// right-left
-		for (int x = N - 1; x >= 0; x--) {
-			for (int y = N - 1; y >= 0; y--) {
-				if (board[x][y] >= 0) {
-					board[x][y] = Math.min(getHeight(board, x, y + 1) + 1, board[x][y]);
-					max = Math.max(board[x][y], max);
-				}
+			// right-left
+			for (int y = N - 1, ct = -1; y >= 0; y--) {
+				board[x][y] = board[x][y] >= 0 ? Math.min(++ct, board[x][y]) : (ct = -1);
+				max = Math.max(board[x][y], max);
 			}
 		}
 
 		return max + 1;
-	}
-
-	private int getHeight(int[][] board, int x, int y) {
-		int height = -1;
-		try {
-			height = board[x][y];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			height = -1;
-		}
-
-		return height;
 	}
 }
