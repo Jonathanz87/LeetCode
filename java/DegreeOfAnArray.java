@@ -20,77 +20,40 @@
 		nums[i] will be an integer between 0 and 49,999.
 */
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class DegreeOfAnArray {
-	public int findShortestSubArray(int[] nums) {
-		int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
-		//Base case: if length of nums is 0 or 1, return the length
-		if (nums == null || nums.length == 0 || nums.length == 1)
-			return nums.length;
+	public static void main(String[] args){
+		int[] nums = new int[args.length];
 
-		//General case: if 2 or more elements are present
+		for(int i = 0; i < nums.length; i++){
+			nums[i] = Integer.parseInt(args[i]);
+		}
 
-		//list to store numbers with max degree
-		List<Integer> numbers = new ArrayList<Integer>();
-		//array to store frequency of each number
-		int[] freq = new int[50000];
+		System.out.println(findShortestSubArray(nums));
+	}
+	public static int findShortestSubArray(int[] nums) {
+		Map<Integer, Integer> indexMap = new HashMap<>();
+		int minSize = Integer.MAX_VALUE;
+		int maxDdegree = 0;
 
-		int degree = 0;
-
-		//for loop to find out degree of nums[]
 		for (int i = 0; i < nums.length; i++) {
-			int val = ++ freq[nums[i]];
-
-			if (val > degree) {
-				numbers.clear();
-				numbers.add(nums[i]);
-				degree = val;
-			} else if (val == degree) {
-				numbers.add(nums[i]);
+			int n = nums[i];
+			if (!indexMap.containsKey(n)) {
+				indexMap.put(n, i);
+				nums[i] = 0;
+			}
+			int index = indexMap.get(n);
+			nums[index]++;
+			if (nums[index] > maxDdegree) {
+				minSize = i - index + 1;
+				maxDdegree = nums[index];
+			} else if (nums[index] == maxDdegree) {
+				minSize = Math.min(minSize, i - index + 1);
 			}
 		}
 
-		//variable to store final answer
-		int minLength = Integer.MAX_VALUE;
-
-		//loop through all numbers which have same frequency as degree of nums
-		for (int i = 0; i < numbers.size(); i++) {
-
-			int currentNumber = numbers.get(i);
-			int start = -1;
-			int end = -1;
-			int currentLength = 0;
-
-			//find the start and end indices of the number in the array
-			for (int j = 0; j < nums.length; j++) {
-				if (currentNumber == nums[j]) {
-					if (start == -1)
-						start = j;
-
-					--freq[nums[j]];
-
-					if (freq[nums[j]] == 0) {
-						end = j;
-						break;
-					}
-
-				}
-			}
-
-			currentLength = end - start + 1;
-
-			//if length is same as degree of nums[] break
-			if (currentLength == degree) {
-				minLength = currentLength;
-				break;
-			}
-
-			//update minLength if currentLength is shorter
-			if (currentLength < minLength)
-				minLength = currentLength;
-
-
-		}
-
-		return minLength;
+		return minSize;
 	}
 }
