@@ -69,6 +69,9 @@ public class LeafSimilarTrees {
 					right = rightQueue[rightIndex--];
 				}
 			}
+			if(left != null && right != null && left.val != right.val){
+				return false;
+			}
 		} while (left != null && right != null);
 
 
