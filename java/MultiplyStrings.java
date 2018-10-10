@@ -10,14 +10,16 @@
 		You must not use any built-in BigInteger library or convert the inputs to integer directly.
 */
 
-public class MultiplyStrings{
-	static public void main(String[] args){
-		System.out.println(multiply(args[0], args[1]));
+import java.util.Arrays;
+
+public class MultiplyStrings {
+	static public void main(String[] args) {
+		System.out.println(multiply2(args[0], args[1]));
 	}
 
-	static public String multiply(String num1, String num2) {
-		if(num1.length() <= 0 || num1.length() <= 0 || 
-			num1.charAt(0) == '0' || num2.charAt(0) == '0'){
+	public static String multiply(String num1, String num2) {
+		if (num1.length() <= 0 || num1.length() <= 0 ||
+		        num1.charAt(0) == '0' || num2.charAt(0) == '0') {
 			return "0";
 		}
 
@@ -25,8 +27,8 @@ public class MultiplyStrings{
 		int carry = 0;
 		StringBuilder result = new StringBuilder("");
 
-		for(int i = num1MaxIndex + num2MaxIndex; i >= 0; i--){
-			for(int x = Math.min(num1MaxIndex, i), y = i - x; x >= 0 && y <= num2MaxIndex; x--, y++){
+		for (int i = num1MaxIndex + num2MaxIndex; i >= 0; i--) {
+			for (int x = Math.min(num1MaxIndex, i), y = i - x; x >= 0 && y <= num2MaxIndex; x--, y++) {
 				carry += (num1.charAt(x) - '0') * (num2.charAt(y) - '0');
 			}
 
@@ -34,9 +36,47 @@ public class MultiplyStrings{
 			carry /= 10;
 		}
 
-		if(carry != 0)
+		if (carry != 0)
 			result.insert(0, carry);
 
 		return new String(result);
+	}
+
+
+	public static String multiply2(String num1, String num2) {
+		if (num1 == null | num2 == null ||
+		        num1.length() <= 0 || num1.length() <= 0 ||
+		        num1.charAt(0) == '0' || num2.charAt(0) == '0') {
+			return "0";
+		}
+
+		String n1 = new StringBuilder(num1).reverse().toString();
+		String n2 = new StringBuilder(num2).reverse().toString();
+
+		int[] d = new int[num1.length() + num2.length()];
+
+		for (int i = 0; i < n1.length(); i++) {
+			for (int j = 0; j < n2.length(); j++) {
+				d[i + j] += (n1.charAt(i) - '0') * (n2.charAt(j) - '0');
+			}
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < d.length; i++) {
+			int mod = d[i] % 10;
+			int carry = d[i] / 10;
+
+			if (i + 1 < d.length) {
+				d[i + 1] += carry;
+			}
+			sb.insert(0, mod);
+		}
+
+		while (sb.charAt(0) == '0' && sb.length() > 1) {
+			sb.deleteCharAt(0);
+		}
+
+		return sb.toString();
 	}
 }
