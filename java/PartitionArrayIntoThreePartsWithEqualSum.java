@@ -35,5 +35,25 @@ public class PartitionArrayIntoThreePartsWithEqualSum {
 		if (sum % 3 != 0) {
 			return false;
 		}
+
+		int index = 0;
+		int len = A.length;
+		int target = sum / 3;
+		int subSum = A[index++];
+
+		while(index < len && subSum != target){
+			subSum += A[index++];
+		}
+
+		if(index >= len){
+			return false;
+		}
+
+		subSum = A[index++];
+		while(index < len && subSum != target){
+			subSum += A[index++];
+		}
+
+		return index < len;
 	}
 }
