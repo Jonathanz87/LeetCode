@@ -11,54 +11,54 @@
         0 <= A[i] <= 5000
 */
 
-public class SortArrayByParity{
-	public static void main(String[] args){
+public class SortArrayByParity {
+	public static void main(String[] args) {
 		int[] nums = new int[args.length];
 
-		for(int i = 0; i < args.length; i++){
+		for (int i = 0; i < args.length; i++) {
 			nums[i] = Integer.parseInt(args[i]);
 		}
 
-		for(int n : sortArrayByParity2(nums)){
+		for (int n : sortArrayByParity2(nums)) {
 			System.out.println(n);
 		}
 	}
-    public static int[] sortArrayByParity(int[] A) {
-        int evenIndex = 0;
-        int oddIndex = A.length - 1;
+	public static int[] sortArrayByParity(int[] A) {
+		int evenIndex = 0;
+		int oddIndex = A.length - 1;
 
-        while(evenIndex < A.length && oddIndex >= 0 && evenIndex < oddIndex){
-        	while(evenIndex < A.length && A[evenIndex] % 2 == 0) {
-        		evenIndex++;
-        	}
+		while (evenIndex < A.length && oddIndex >= 0 && evenIndex < oddIndex) {
+			while (evenIndex < A.length && A[evenIndex] % 2 == 0) {
+				evenIndex++;
+			}
 
-        	while (oddIndex >= 0 && A[oddIndex] % 2 == 1) {
-        		oddIndex--;
-        	}
+			while (oddIndex >= 0 && A[oddIndex] % 2 == 1) {
+				oddIndex--;
+			}
 
-        	if(evenIndex < A.length && oddIndex >= 0 && evenIndex < oddIndex){
-        		A[evenIndex] = A[evenIndex] ^ A[oddIndex];
-        		A[oddIndex] = A[evenIndex] ^ A[oddIndex];
-        		A[evenIndex] = A[evenIndex] ^ A[oddIndex];
-        	}
-        }
+			if (evenIndex < A.length && oddIndex >= 0 && evenIndex < oddIndex) {
+				A[evenIndex] = A[evenIndex] ^ A[oddIndex];
+				A[oddIndex] = A[evenIndex] ^ A[oddIndex];
+				A[evenIndex] = A[evenIndex] ^ A[oddIndex];
+			}
+		}
 
-        return A;
-    }
+		return A;
+	}
 
-    public static int[] sortArrayByParity2(int[] A) {
-        int[] result = new int[A.length];
+	public static int[] sortArrayByParity2(int[] A) {
+		int[] result = new int[A.length];
 
-        int left = 0, right = A.length - 1;
+		int left = 0, right = A.length - 1;
 
-        for(int n : A){
-            if(n % 2 == 0){
-                result[left++] = n;
-            }else{
-                result[right--] = n;
-            }
-        }
+		for (int n : A) {
+			if (n % 2 == 0) {
+				result[left++] = n;
+			} else {
+				result[right--] = n;
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 }
