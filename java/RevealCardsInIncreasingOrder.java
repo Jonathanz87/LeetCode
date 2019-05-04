@@ -45,7 +45,10 @@ public class RevealCardsInIncreasingOrder {
 			resultList.addFirst(resultList.removeLast());
 			resultList.addFirst(deck[index--]);
 		}
-
-		return resultList.toArray(new int[resultList.size()]);
+		int i = 0;
+		for (int n : resultList) {
+			deck[i++] = n;
+		}
+		return deck;
 	}
 }
