@@ -24,6 +24,15 @@
 
 public class ComplementOfBase10Integer {
     public int bitwiseComplement(int N) {
-        return 1;
+        if(N == 0) return 1;
+
+        int mask = 0;
+        int result = ~N;
+        while(N > 0){
+            N >>= 1;
+            mask = mask << 1 | 1;
+        }
+
+        return result & mask;
     }
 }
