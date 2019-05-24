@@ -33,19 +33,12 @@ public class ConstructTheRectangle {
     }
 
     public static int[] constructRectangle(int area) {
-        int[] result = new int[2];
-        result[0] = (int) Math.sqrt(area);
-        result[1] = result[0];
+        int small = (int) Math.sqrt(area);
 
-        int product;
-        while ((product = result[0] * result[1]) != area) {
-            if (product > area) {
-                result[0]--;
-            } else {
-                result[1]++;
-            }
+        while(area % small != 0){
+            small--;
         }
 
-        return result;
+        return new int[]{area / small, small};
     }
 }
