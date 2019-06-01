@@ -30,13 +30,13 @@ public class BinarySearchTreeToGreaterSumTree {
     }
 
     public static TreeNode bstToGst(TreeNode root) {
-
-        return null;
+        traverseTree(root, 0);
+        return root;
     }
 
     private static int traverseTree(TreeNode root, int sum) {
         if (root == null) {
-            return 0;
+            return sum;
         }
         root.val += traverseTree(root.right, sum);
         return traverseTree(root.left, root.val);
