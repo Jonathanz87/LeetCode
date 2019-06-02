@@ -46,4 +46,20 @@ public class BestSightseeingPair {
         }
         return max;
     }
+
+    /*
+     * for any j where j > i A[i] + A[j] + i - j = spot = A[i] + i + A[j] - j if
+     * A[i] + i is increasing, spot is increasing otherwise sport is decreasing
+     */
+    public static int maxScoreSightseeingPair(int[] A) {
+        int left = A[0];
+        int max = Integer.MIN_VALUE;
+
+        for (int j = 1; j < A.length; j++) {
+            max = Math.max(max, left + A[j] - j);
+            left = Math.max(left, A[j] + j);
+        }
+
+        return max;
+    }
 }
