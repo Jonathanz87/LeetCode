@@ -27,8 +27,9 @@ import java.util.Arrays;
 
 public class MaximizeSumOfArrayAfterKNegations {
     public static void main(String[] args) {
-        System.out.println(largestSumAfterKNegations(new int[] {2,-3,-1,5,-4}, 3));
+        System.out.println(largestSumAfterKNegations2(new int[] { 4, 2, 3 }, 1));
     }
+
     public static int largestSumAfterKNegations(int[] A, int K) {
         Arrays.sort(A);
         int sum = 0;
@@ -50,5 +51,35 @@ public class MaximizeSumOfArrayAfterKNegations {
         sum += K % 2 == 1 ? -A[A.length - 1] : A[A.length - 1];
 
         return sum;
+    }
+
+    public static int largestSumAfterKNegations2(int[] A, int K) {
+        Arrays.sort(A);
+        int sum = 0;
+        int smallest = Integer.MAX_VALUE;
+
+        for (int n : A) {
+            if (n < 0 && K > 0) {
+                sum -= n;
+                K--;
+                smallest = Math.min(smallest, -n);
+            } else {
+                sum += n;
+                smallest = Math.min(smallest, n);
+            }
+        }
+
+        if (K % 2 == 1) {
+            sum -= smallest * 2;
+        }
+
+        return sum;
+    }
+
+    public static int largestSumAfterKNegationsN(int[] A, int K) {
+        int[] numberCount = new int[201];
+        int shift = 100;
+
+        return 0;
     }
 }
