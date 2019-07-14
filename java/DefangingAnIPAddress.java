@@ -31,4 +31,19 @@ public class DefangingAnIPAddress {
         }
         return defangedIp.toString();
     }
+
+    public String defangIPaddr3(String address) {
+        char[] defangedIp = new char[address.length() + 6];
+        int i = 0;
+        for (char c : address.toCharArray()) {
+            if (c == '.') {
+                defangedIp[i++] = '[';
+                defangedIp[i++] = '.';
+                defangedIp[i++] = ']';
+            } else {
+                defangedIp[i++] = c;
+            }
+        }
+        return String.valueOf(defangedIp);
+    }
 }
