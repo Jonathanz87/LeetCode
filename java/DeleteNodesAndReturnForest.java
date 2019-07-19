@@ -57,7 +57,7 @@ public class DeleteNodesAndReturnForest {
             root.left = null;
         }
 
-        if (dsf(root.right, deletionSet, result, isParentDeleted)) {
+        if (dsf(root.right, deletionSet, result, isDeleted)) {
             root.right = null;
         }
 
