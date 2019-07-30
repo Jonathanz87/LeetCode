@@ -35,10 +35,64 @@
         The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
 */
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class MinimumHeightTrees {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if(n == 1){
+            List<Integer> result = new LinkedList<>();
+            result.add(0);
+            return result;
+        }
+        List<Integer>[] graph = new List[n];
+        int[] degree = new int[n];
+        List<Integer> result = new LinkedList<>();
+
+        for (int[] edge : edges) {
+            if (graph[edge[0]] == null) {
+                graph[edge[0]] = new LinkedList<>();
+            }
+            if (graph[edge[1]] == null) {
+                graph[edge[1]] = new LinkedList<>();
+            }
+
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+            degree[edge[0]]++;
+            degree[edge[1]]++;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (degree[i] == 1) {
+                result.add(i);
+                degree[i]--;
+            }
+        }
+
+        while (!result.isEmpty()) {
+            List<Integer> temp = new LinkedList<>();
+
+            for (Integer v : result) {
+                List<Integer> connectionList = graph[v];
+                for (Integer i : connectionList) {
+                    degree[i]--;
+                    if (degree[i] == 1) {
+                        temp.add(i);
+                    }
+                }
+            }
+
+            if (temp.isEmpty()) {
+                break;
+            }
+            result = temp;
+        }
+
+        return result;
+    }
+
     public List<Integer> findMinHeightTrees_n3(int n, int[][] edges) {
         List<Integer> result = new LinkedList<>();
         int min = Integer.MAX_VALUE;
