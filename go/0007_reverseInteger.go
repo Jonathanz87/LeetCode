@@ -18,7 +18,7 @@
 
 package main
 
-import ("strconv";"fmt";"os")
+import ( "strconv"; "fmt"; "os"; "math")
 
 func main() {
 	n, err := strconv.Atoi(os.Args[1])
@@ -28,8 +28,8 @@ func main() {
 }
 
 func reverse(x int) int {
-	const max = 2147483647
-	const min = -2147483648
+	const max = math.MaxInt32
+	const min = math.MinInt32
 	sign := 1
 	result := 0
 	if x < 0 {
